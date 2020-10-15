@@ -30,4 +30,18 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220));
 		assertEquals("Lakewood", hotelReservation.findCheapestHotel("10 Sep 2020", "11 Sep 2020"));
 	}
+	
+	/**
+	 * UC3 testing
+	 */
+	@Test
+	void whenNewHotelAddedWithWeekend_shouldReturnTrue() {
+
+		HotelReservation hotelReservationObject = new HotelReservation();
+		assertTrue(hotelReservationObject.addHotel("Lakewood", 110, 90));
+		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160, 60));
+		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110, 150));
+
+		hotelReservationObject.printHotels();
+	}
 }
