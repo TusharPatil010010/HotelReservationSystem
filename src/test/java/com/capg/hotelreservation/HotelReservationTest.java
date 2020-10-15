@@ -9,9 +9,9 @@ class HotelReservationTest {
 	void whenNewHotelAdded_shouldReturnTrue() {
 
 		HotelReservation hotelReservationObject = new HotelReservation();
-		assertTrue(hotelReservationObject.addHotel("Lakewood", 110, 90));
-		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160, 60));
-		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110, 150));
+		assertTrue(hotelReservationObject.addHotel("Lakewood", 110));
+		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160));
+		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110));
 
 		hotelReservationObject.printHotelList();
 
