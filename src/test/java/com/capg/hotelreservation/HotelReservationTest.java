@@ -13,7 +13,6 @@ class HotelReservationTest {
 		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160));
 		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110));
 
-		hotelReservationObject.printHotelList();
-
+		hotelReservationObject.printHotels();
 	}
 }

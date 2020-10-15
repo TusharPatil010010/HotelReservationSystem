@@ -1,33 +1,36 @@
 package com.capg.hotelreservation;
 
 import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HotelReservation {
-
-	List<Hotel> myHotelList;
+	private static Map<String, Hotel> hotelMap;
 
 	public HotelReservation() {
-		myHotelList = new ArrayList<>();
+		hotelMap = new HashMap<>();
 	}
 
 	/**
-	 * UC1 adding hotels
+	 * UC1 adding hotel to the system
 	 * 
 	 * @param name
-	 * @param regWeekdayRate
+	 * @param regularWeekday
 	 * @return
 	 */
 	public boolean addHotel(String name, int regWeekdayRate) {
-		Hotel hotel = new Hotel(name, regWeekdayRate);
-		myHotelList.add(hotel);
+		Hotel hotelObject = new Hotel(name, regWeekdayRate);
+		hotelMap.put(name, hotelObject);
 		return true;
 	}
 
-	public void printHotelList() {
-		for (Hotel hotel : myHotelList) {
-			System.out.println("Hotel Name : " + hotel.getHotelName());
-			System.out.println("Rate for regular customer for weekday : " + hotel.getRegWeekdayRate());
-			System.out.println();
+	/**
+	 * Prints the hotels
+	 */
+	public void printHotels() {
+		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
+			System.out.println("Hotel Name : " + entry.getKey());
+			System.out.println("Rate on weekdays for regular customers : " + entry.getValue().getRegWeekdayRate());
 		}
 	}
 
