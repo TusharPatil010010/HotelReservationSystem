@@ -42,6 +42,15 @@ public class HotelReservation {
 		return true;
 	}
 	
+	/**
+	 * UC5 adding rating to the hotels
+	 * 
+	 * @param name
+	 * @param regWeekdayRate
+	 * @param regWeekendRate
+	 * @param hotelRating
+	 * @return
+	 */
 	public boolean addHotel(String name, int regWeekdayRate, int regWeekendRate, int hotelRating) {
 		Hotel hotelObject = new Hotel(name, regWeekdayRate, regWeekendRate, hotelRating);
 		hotelMap.put(name, hotelObject);
@@ -82,6 +91,35 @@ public class HotelReservation {
 			System.out.print(hotel.getHotelName() + "  "); 			//getting every hotel with min rent
 		}
 		System.out.println("Total Rent : " + minimumRent);			//printing min rent
+		return true;
+	}
+	
+	/**
+	 * UC6 finds the best rated cheapest hotel
+	 * if two hotels have same rent, max rating wins
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 * @return
+	 */
+	public boolean cheapestBestRatedHotel(String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(fromDate, toDate);
+		int minimumRent = Integer.MAX_VALUE;
+		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
+			if (entry.getKey() < minimumRent)
+				minimumRent = entry.getKey();
+		}
+		ArrayList<Hotel> cheapestHotels = rentMap.get(minimumRent);
+		String bestRatedCheapestHotel = "";
+		int rating = 0;
+		for (Hotel hotel : cheapestHotels) {
+			if (hotel.getHotelRating() > rating) {
+				bestRatedCheapestHotel = hotel.getHotelName();
+				rating = hotel.getHotelRating();
+			}
+		}
+		System.out.println("Cheapest Hotel : " + bestRatedCheapestHotel + " Rating : " + rating + " Total Rent : "
+				+ minimumRent + "\n");
 		return true;
 	}
 	

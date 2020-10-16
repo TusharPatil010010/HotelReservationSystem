@@ -15,10 +15,9 @@ class HotelReservationTest {
 		assertTrue(hotelReservationObject.addHotel("Lakewood", 110));
 		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160));
 		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110));
-
 		hotelReservationObject.printHotels();
 	}
-	
+
 	/**
 	 * UC2 Testing
 	 */
@@ -30,7 +29,7 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220));
 		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
 	}
-//	
+
 	/**
 	 * UC3 testing
 	 */
@@ -41,10 +40,9 @@ class HotelReservationTest {
 		assertTrue(hotelReservationObject.addHotel("Lakewood", 110, 90));
 		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160, 60));
 		assertTrue(hotelReservationObject.addHotel("Ridgewood", 220, 150));
-
 		hotelReservationObject.printHotels();
 	}
-	
+
 	/**
 	 * UC4 Testing
 	 */
@@ -55,8 +53,8 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60));
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
 		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
-		}
-	
+	}
+
 	/**
 	 * UC5 testing
 	 */
@@ -67,7 +65,18 @@ class HotelReservationTest {
 		assertTrue(hotelReservationObject.addHotel("Lakewood", 110, 90, 3));
 		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160, 60, 4));
 		assertTrue(hotelReservationObject.addHotel("Ridgewood", 220, 150, 5));
-
 		hotelReservationObject.printHotels();
+	}
+
+	/**
+	 * UC6 testing
+	 */
+	@Test
+	void whenCheapestBestRatedCalled_shouldReturn_bestRatedHotel() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 110, 90, 3);
+		hotelReservation.addHotel("Bridgewood", 150, 50, 4);
+		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
+		assertTrue(hotelReservation.cheapestBestRatedHotel("11 Sep 2020", "12 Sep 2020"));
 	}
 }
