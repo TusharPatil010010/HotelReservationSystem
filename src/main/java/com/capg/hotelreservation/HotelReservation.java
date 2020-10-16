@@ -62,7 +62,7 @@ public class HotelReservation {
 	 * @param toDate
 	 * @return
 	 */
-	public boolean findCheapestHotel(String fromDate, String toDate) {
+	public Boolean findCheapestHotel(String fromDate, String toDate) {
 		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(fromDate, toDate);
 		int minimumRent = Integer.MAX_VALUE;						 //Assigns max possible value
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
@@ -116,7 +116,7 @@ public class HotelReservation {
 		int days[];
 		days = new int[2];
 		
-		for (LocalDate date = from; date.isBefore(to); date = date.plusDays(1)) {
+		for (LocalDate date = from; date.isBefore(to.plusDays(1)); date = date.plusDays(1)) {
 			DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
 			switch(day) {
 			case SATURDAY :
@@ -125,6 +125,7 @@ public class HotelReservation {
 				
 			case SUNDAY :
 				numWeekendDays++;
+				break;
 				
 			default :
 				numWeekdays++;

@@ -30,7 +30,7 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220));
 		assertEquals("Lakewood", hotelReservation.findCheapestHotel("10 Sep 2020", "11 Sep 2020"));
 	}
-	
+//	
 	/**
 	 * UC3 testing
 	 */
@@ -55,5 +55,5 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60));
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
 		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
-	}
+		}
 }
