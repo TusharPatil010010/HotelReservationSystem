@@ -56,6 +56,23 @@ public class HotelReservation {
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
+	
+	/**
+	 * UC8 and UC9 Adding rates for reward customers
+	 * 
+	 * @param name
+	 * @param regWeekdayRate
+	 * @param regWeekendRate
+	 * @param hotelRating
+	 * @param rewWeekdayRate
+	 * @param rewWeekendRate
+	 * @return
+	 */
+	public boolean addHotel(String name, int regWeekdayRate, int regWeekendRate, int hotelRating, int rewWeekdayRate, int rewWeekendRate) {
+		Hotel hotelObject = new Hotel(name, regWeekdayRate, regWeekendRate, hotelRating, rewWeekdayRate, rewWeekendRate);
+		hotelMap.put(name, hotelObject);
+		return true;
+	}
 
 	/**
 	 * Prints the hotels
@@ -66,6 +83,8 @@ public class HotelReservation {
 			System.out.println("Rate on weekdays for regular customers : " + entry.getValue().getRegWeekdayRate());
 			System.out.println("Rate on weekends for regular customers : " + entry.getValue().getRegWeekendRate());
 			System.out.println("Hotel Rating : " + entry.getValue().getHotelRating());
+			System.out.println("Rate on weekdays for reward customers : " + entry.getValue().getRewWeekdayRate());
+			System.out.println("Rate on weekdays for reward customers : " + entry.getValue().getRewWeekdayRate());
 			System.out.println();
 		}
 	}
