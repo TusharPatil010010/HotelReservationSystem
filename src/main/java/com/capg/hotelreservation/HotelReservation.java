@@ -118,7 +118,7 @@ public class HotelReservation {
 				rating = hotel.getHotelRating();
 			}
 		}
-		System.out.println("Cheapest Hotel : " + bestRatedCheapestHotel + " Rating : " + rating + " Total Rent : "
+		System.out.println("Cheapest Hotel for you is " + bestRatedCheapestHotel + " with rating  " + rating + " Total Rent : "
 				+ minimumRent + "\n");
 		return true;
 	}
