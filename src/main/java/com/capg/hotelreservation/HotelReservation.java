@@ -7,6 +7,8 @@ import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HotelReservation {
 	private static Map<String, Hotel> hotelMap;
@@ -123,7 +125,7 @@ public class HotelReservation {
 	 * @return
 	 */
 	public boolean cheapestBestRatedHotel(String customerType, String fromDate, String toDate) {
-		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(customerType,fromDate, toDate);
+		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(customerType, fromDate, toDate);
 		int minimumRent = Integer.MAX_VALUE;
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
 			if (entry.getKey() < minimumRent)
@@ -245,6 +247,26 @@ public class HotelReservation {
 		days[0] = numWeekdays;
 		days[1] = numWeekendDays;
 		return days;
+	}
+
+	/**
+	 * UC10 Handles the exception for invalid inout
+	 * 
+	 * @param customerType
+	 * @param fromDate
+	 * @param toDate
+	 * @throws InvalidEntryException
+	 */
+	public void validateInputs(String customerType, String fromDate, String toDate) throws InvalidEntryException {
+		String regex = "^[0-9]{2}[ ][A-Za-z]{3}[ ][0-9]{4}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcherFrom = pattern.matcher(fromDate);
+		Matcher matcherTo = pattern.matcher(toDate);
+		if (!matcherFrom.find() || !matcherTo.find() || !customerType.equalsIgnoreCase("Regular")
+				|| !customerType.equalsIgnoreCase("Reward")) {
+			throw new InvalidEntryException("Invalid input, please enter a valid input");
+		}
+		return;
 	}
 
 	public static void main(String[] args) {
