@@ -27,7 +27,7 @@ public class HotelReservation {
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
-	
+
 	/**
 	 * UC3 adding hotel considering weekend rates
 	 * 
@@ -41,7 +41,7 @@ public class HotelReservation {
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
-	
+
 	/**
 	 * UC5 adding rating to the hotels
 	 * 
@@ -56,7 +56,7 @@ public class HotelReservation {
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
-	
+
 	/**
 	 * UC8 and UC9 Adding rates for reward customers
 	 * 
@@ -68,8 +68,10 @@ public class HotelReservation {
 	 * @param rewWeekendRate
 	 * @return
 	 */
-	public boolean addHotel(String name, int regWeekdayRate, int regWeekendRate, int hotelRating, int rewWeekdayRate, int rewWeekendRate) {
-		Hotel hotelObject = new Hotel(name, regWeekdayRate, regWeekendRate, hotelRating, rewWeekdayRate, rewWeekendRate);
+	public boolean addHotel(String name, int regWeekdayRate, int regWeekendRate, int hotelRating, int rewWeekdayRate,
+			int rewWeekendRate) {
+		Hotel hotelObject = new Hotel(name, regWeekdayRate, regWeekendRate, hotelRating, rewWeekdayRate,
+				rewWeekendRate);
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
@@ -88,18 +90,17 @@ public class HotelReservation {
 			System.out.println();
 		}
 	}
-	
+
 	/**
-	 * UC4 Find cheapest hotel for the given date range
-	 * Including weekend rates
+	 * UC4 Find cheapest hotel for the given date range Including weekend rates
 	 * 
 	 * @param fromDate
 	 * @param toDate
 	 * @return
 	 */
-	public Boolean findCheapestHotel(String fromDate, String toDate) {
-		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(fromDate, toDate);
-		int minimumRent = Integer.MAX_VALUE;						 //Assigns max possible value
+	public Boolean findCheapestHotel(String customerType, String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(customerType, fromDate, toDate);
+		int minimumRent = Integer.MAX_VALUE; // Assigns max possible value
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
 			if (entry.getKey() < minimumRent) {
 				minimumRent = entry.getKey();
@@ -107,22 +108,22 @@ public class HotelReservation {
 		}
 		System.out.println("Cheapest Hotel for you is ");
 		for (Hotel hotel : rentMap.get(minimumRent)) {
-			System.out.print(hotel.getHotelName() + "  "); 			//getting every hotel with min rent
+			System.out.print(hotel.getHotelName() + "  "); // getting every hotel with min rent
 		}
-		System.out.println("Total Rent : " + minimumRent);			//printing min rent
+		System.out.println("Total Rent : " + minimumRent); // printing min rent
 		return true;
 	}
-	
+
 	/**
-	 * UC6 finds the best rated cheapest hotel
-	 * if two hotels have same rent, max rating wins
+	 * UC6 finds the best rated cheapest hotel if two hotels have same rent, max
+	 * rating wins
 	 * 
 	 * @param fromDate
 	 * @param toDate
 	 * @return
 	 */
-	public boolean cheapestBestRatedHotel(String fromDate, String toDate) {
-		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(fromDate, toDate);
+	public boolean cheapestBestRatedHotel(String customerType, String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rentMap = createRentMap(customerType,fromDate, toDate);
 		int minimumRent = Integer.MAX_VALUE;
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
 			if (entry.getKey() < minimumRent)
@@ -137,11 +138,11 @@ public class HotelReservation {
 				rating = hotel.getHotelRating();
 			}
 		}
-		System.out.println("Cheapest Hotel for you is " + bestRatedCheapestHotel + " with rating  " + rating + " Total Rent : "
-				+ minimumRent + "\n");
+		System.out.println("Cheapest Hotel for you is " + bestRatedCheapestHotel + " with rating  " + rating
+				+ " Total Rent : " + minimumRent + "\n");
 		return true;
 	}
-	
+
 	/**
 	 * UC7 finds best rated hotel
 	 * 
@@ -164,27 +165,33 @@ public class HotelReservation {
 		System.out.println("Best rated hotel : " + bestRatedHotel + ", Rent : " + rent);
 		return true;
 	}
-	
+
 	/**
-	 * Creates rent map of hotels that are added
-	 * No need to repeat the same code to find the rent, following DRY
+	 * Creates rent map of hotels that are added No need to repeat the same code to
+	 * find the rent, following DRY
 	 * 
 	 * @param fromDate
 	 * @param toDate
+	 * @param toDate2
 	 * @return
 	 */
-	public static Map<Integer, ArrayList<Hotel>> createRentMap(String fromDate, String toDate) {
+	public static Map<Integer, ArrayList<Hotel>> createRentMap(String customerType, String fromDate, String toDate) {
 		HashMap<Integer, ArrayList<Hotel>> rentMap = new HashMap<>();
 		int days[] = numberOfDays(fromDate, toDate);
+		int totalRent = 0;
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
-			int totalRent = calculateRent(fromDate, toDate, entry.getValue().getRegWeekdayRate(),
-					entry.getValue().getRegWeekendRate());
-			
+			if (customerType.equalsIgnoreCase("Regular")) {
+				totalRent = calculateRent(fromDate, toDate, entry.getValue().getRegWeekdayRate(),
+						entry.getValue().getRegWeekendRate());
+			} else if (customerType.equalsIgnoreCase("Reward")) {
+				totalRent = calculateRent(fromDate, toDate, entry.getValue().getRewWeekdayRate(),
+						entry.getValue().getRewWeekendRate());
+			}
 			rentMap.computeIfAbsent(totalRent, key -> new ArrayList<>()).add(entry.getValue());
 		}
 		return rentMap;
 	}
-	
+
 	/**
 	 * Calculates rent
 	 * 
@@ -211,26 +218,26 @@ public class HotelReservation {
 	 */
 	public static int[] numberOfDays(String fromDate, String toDate) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-		
-		LocalDate from = LocalDate.parse(fromDate, formatter);    // convert String to LocalDate
-		LocalDate to = LocalDate.parse(toDate, formatter);		 // convert String to LocalDate
+
+		LocalDate from = LocalDate.parse(fromDate, formatter); // convert String to LocalDate
+		LocalDate to = LocalDate.parse(toDate, formatter); // convert String to LocalDate
 		int numWeekdays = 0;
 		int numWeekendDays = 0;
 		int days[];
 		days = new int[2];
-		
+
 		for (LocalDate date = from; date.isBefore(to.plusDays(1)); date = date.plusDays(1)) {
 			DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
-			switch(day) {
-			case SATURDAY :
+			switch (day) {
+			case SATURDAY:
 				numWeekendDays++;
 				break;
-				
-			case SUNDAY :
+
+			case SUNDAY:
 				numWeekendDays++;
 				break;
-				
-			default :
+
+			default:
 				numWeekdays++;
 				break;
 			}

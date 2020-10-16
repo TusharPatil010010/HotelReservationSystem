@@ -27,7 +27,7 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Lakewood", 110));
 		assertTrue(hotelReservation.addHotel("Bridgewood", 160));
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220));
-		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
+		assertTrue(hotelReservation.findCheapestHotel("Regular", "11 Sep 2020", "12 Sep 2020"));
 	}
 
 	/**
@@ -52,7 +52,7 @@ class HotelReservationTest {
 		assertTrue(hotelReservation.addHotel("Lakewood", 110, 90));
 		assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60));
 		assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
-		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
+		assertTrue(hotelReservation.findCheapestHotel("Regular", "11 Sep 2020", "12 Sep 2020"));
 	}
 
 	/**
@@ -77,9 +77,9 @@ class HotelReservationTest {
 		hotelReservationObject.addHotel("Lakewood", 110, 90, 3);
 		hotelReservationObject.addHotel("Bridgewood", 150, 50, 4);
 		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5);
-		assertTrue(hotelReservationObject.cheapestBestRatedHotel("11 Sep 2020", "12 Sep 2020"));
+		assertTrue(hotelReservationObject.cheapestBestRatedHotel("Regular", "11 Sep 2020", "12 Sep 2020"));
 	}
-	
+
 	/**
 	 * UC7 testing
 	 */
@@ -91,6 +91,7 @@ class HotelReservationTest {
 		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5);
 		assertTrue(hotelReservationObject.findBestRatedHotelForGivenDates("11 Sep 2020", "12 Sep 2020"));
 	}
+
 	/**
 	 * UC8 UC9 testing
 	 */
@@ -101,5 +102,17 @@ class HotelReservationTest {
 		hotelReservationObject.addHotel("Bridgewood", 150, 50, 4, 110, 50);
 		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5, 100, 40);
 		hotelReservationObject.printHotels();
-		}
+	}
+
+	/**
+	 * UC10 finds cheapest best rated hotel for reward customers
+	 */
+	@Test
+	void whenCheapestBestRatedCalledForRewardCustomers_shouldReturn_bestRatedHotel() {
+		HotelReservation hotelReservationObject = new HotelReservation();
+		hotelReservationObject.addHotel("Lakewood", 110, 90, 3);
+		hotelReservationObject.addHotel("Bridgewood", 150, 50, 4);
+		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5);
+		assertTrue(hotelReservationObject.cheapestBestRatedHotel("Reward", "11 Sep 2020", "12 Sep 2020"));
+	}
 }
