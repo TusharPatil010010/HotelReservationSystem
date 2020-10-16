@@ -47,6 +47,7 @@ public class HotelReservation {
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
 			System.out.println("Hotel Name : " + entry.getKey());
 			System.out.println("Rate on weekdays for regular customers : " + entry.getValue().getRegWeekdayRate());
+			System.out.println("Rate on weekends for regular customers : " + entry.getValue().getRegWeekdayRate());
 			System.out.println();
 		}
 	}
