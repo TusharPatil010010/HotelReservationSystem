@@ -124,6 +124,29 @@ public class HotelReservation {
 	}
 	
 	/**
+	 * UC7 finds best rated hotel
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 * @return
+	 */
+	public boolean findBestRatedHotelForGivenDates(String fromDate, String toDate) {
+		int rating = 0;
+		int rent = 0;
+		String bestRatedHotel = "";
+		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
+			if (entry.getValue().getHotelRating() > rating) {
+				rating = entry.getValue().getHotelRating();
+				bestRatedHotel = entry.getKey();
+				rent = calculateRent(fromDate, toDate, entry.getValue().getRegWeekdayRate(),
+						entry.getValue().getRegWeekendRate());
+			}
+		}
+		System.out.println("Best rated hotel : " + bestRatedHotel + ", Rent : " + rent);
+		return true;
+	}
+	
+	/**
 	 * Creates rent map of hotels that are added
 	 * No need to repeat the same code to find the rent, following DRY
 	 * 
@@ -135,13 +158,29 @@ public class HotelReservation {
 		HashMap<Integer, ArrayList<Hotel>> rentMap = new HashMap<>();
 		int days[] = numberOfDays(fromDate, toDate);
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
-			int weekdayRent = entry.getValue().getRegWeekdayRate() * days[0];
-			int weekendRent = entry.getValue().getRegWeekendRate() * days[1];
-			int totalRent = weekdayRent + weekendRent;
+			int totalRent = calculateRent(fromDate, toDate, entry.getValue().getRegWeekdayRate(),
+					entry.getValue().getRegWeekendRate());
 			
 			rentMap.computeIfAbsent(totalRent, key -> new ArrayList<>()).add(entry.getValue());
 		}
 		return rentMap;
+	}
+	
+	/**
+	 * Calculates rent
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 * @param weekdayRate
+	 * @param weekendRate
+	 * @return
+	 */
+	public static int calculateRent(String fromDate, String toDate, int weekdayRate, int weekendRate) {
+		int[] numOfDays = numberOfDays(fromDate, toDate);
+		int weekdayRent = weekdayRate * numOfDays[0];
+		int weekendRent = weekendRate * numOfDays[1];
+		int totalRent = weekdayRent + weekendRent;
+		return totalRent;
 	}
 
 	/**
