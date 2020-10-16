@@ -41,6 +41,12 @@ public class HotelReservation {
 		hotelMap.put(name, hotelObject);
 		return true;
 	}
+	
+	public boolean addHotel(String name, int regWeekdayRate, int regWeekendRate, int hotelRating) {
+		Hotel hotelObject = new Hotel(name, regWeekdayRate, regWeekendRate, hotelRating);
+		hotelMap.put(name, hotelObject);
+		return true;
+	}
 
 	/**
 	 * Prints the hotels
@@ -50,6 +56,7 @@ public class HotelReservation {
 			System.out.println("Hotel Name : " + entry.getKey());
 			System.out.println("Rate on weekdays for regular customers : " + entry.getValue().getRegWeekdayRate());
 			System.out.println("Rate on weekends for regular customers : " + entry.getValue().getRegWeekendRate());
+			System.out.println("Hotel Rating : " + entry.getValue().getHotelRating());
 			System.out.println();
 		}
 	}
