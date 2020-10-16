@@ -40,8 +40,20 @@ class HotelReservationTest {
 		HotelReservation hotelReservationObject = new HotelReservation();
 		assertTrue(hotelReservationObject.addHotel("Lakewood", 110, 90));
 		assertTrue(hotelReservationObject.addHotel("Bridgewood", 160, 60));
-		assertTrue(hotelReservationObject.addHotel("Ridgewood", 110, 150));
+		assertTrue(hotelReservationObject.addHotel("Ridgewood", 220, 150));
 
 		hotelReservationObject.printHotels();
+	}
+	
+	/**
+	 * UC4 Testing
+	 */
+	@Test
+	void whenFindCheapestHotelIsCalled_shouldReturn_nameOfHotelWithCheapestRent() {
+		HotelReservation hotelReservation = new HotelReservation();
+		assertTrue(hotelReservation.addHotel("Lakewood", 110, 90));
+		assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60));
+		assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
+		assertTrue(hotelReservation.findCheapestHotel("11 Sep 2020", "12 Sep 2020"));
 	}
 }
